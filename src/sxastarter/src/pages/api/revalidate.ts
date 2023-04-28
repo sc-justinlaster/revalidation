@@ -16,7 +16,7 @@ export default async function handler(req: any, res: any) {
           let edgePpath = update.identifier;
           let actualPath = "/" + edgePpath.substring(edgePpath.indexOf('/') + 1);
 
-          console.log(`[revalidate]: Revalidating edgePath "${edgePpath}" as "${actualPath}"`);
+          console.log(`[revalidate]: Revalidating edge path "${edgePpath}" as "${actualPath}"`);
          
           // This probably needs its own error handling, to allow the pages to revalidate.
           await res.revalidate(actualPath);
