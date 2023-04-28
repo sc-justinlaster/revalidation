@@ -101,8 +101,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 5 seconds
-    revalidate: false, // In seconds
-    notFound: props.notFound, // Returns custom 404 page with a status code of 404 when true
+    notFound: props.notFound // Returns custom 404 page with a status code of 404 when true
   };
 };
 
