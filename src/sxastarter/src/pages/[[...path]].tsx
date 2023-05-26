@@ -77,6 +77,7 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
     fallback = process.env.EXPORT_MODE ? false : fallback;
   }
 
+  console.log(`[getStaticPaths]: fallback mode is set to ${fallback}`);
   return {
     paths,
     fallback,
@@ -88,7 +89,8 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 // revalidation (or fallback) is enabled and a new request comes in.
 export const getStaticProps: GetStaticProps = async (context) => {
   const props = await sitecorePagePropsFactory.create(context);
-  console.log(`getStaticProps: ${JSON.stringify(props)}`);
+  console.log(`getStaticProps - context: ${JSON.stringify(context)}`);
+  console.log(`getStaticProps - props: ${JSON.stringify(props)}`);
   // Check if we have a redirect (e.g. custom error page)
   if (props.redirect) {
     return {
