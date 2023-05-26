@@ -1,0 +1,66 @@
+### NOTE: Read the comments or this won't work.
+### NOTE: This file is constructed in a manner that can be utilized with the VS Code REST extension: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+### NOTE: Configuration variables are split into two parts, due to the dependency of the API calls.
+
+####
+#### AUTH CONFIGURATION ####
+####
+### NOTE: You can find this values in the "Auth" or "Credentials" section of your project & environment in deploy.sitecorecloud.io.
+### NOTE: This MUST  be an Edge Administration token
+### NOTE: The auth token must be associated with an environment, and cannot be an "organization" level token.
+### WARNING: Because of the last "NOTE", these values will determine what ENVIRONMENT you're configuring. 
+
+@clientId=Ja6B4gokyBdccRp21w0vySSgSIJ1IspE
+@clientSecret=pqANlQ6_yOHinaoC0EXL5ozg7id6BQZrCkuIJtwL_vp0NOUh5ZDlrn1RMVRxH4EL
+
+### Edge authentication request
+###
+# @name edge_auth
+curl --request POST 
+    --url "https://auth.sitecorecloud.io/oauth/token" 
+    --header "content-type: application/x-www-form-urlencoded" 
+    --data audience=https://api.sitecorecloud.io 
+    --data grant_type=client_credentials 
+    --data client_id={{clientId}}
+    --data client_secret={{clientSecret}}
+####
+#### EDGE CONFIGURATION ####
+####
+### NOTE: Triple check your auth token
+@environmentLabel=development
+@authToken=<>
+@contentToken=<>
+@vercelWebhookUrl=https://c284-23-121-91-115.ngrok-free.app/api/revalidate?secret=123
+@edgeWebhookExecutionMode=OnUpdate
+
+####
+#### Edge API Calls ####
+####
+
+#### List webhooks
+GET https://edge.sitecorecloud.io/api/admin/v1/webhooks
+Authorization: Bearer {{edge_auth.response.body.$.access_token}}
+
+#### Add entity update webhook to Experience Edge
+### NOTE: Make sure to update the "vercelWebhookUrl" variable
+POST https://edge.sitecorecloud.io/api/admin/v1/webhooks
+Content-Type: application/json
+Authorization: Bearer {{edge_auth.response.body.$.access_token}}
+
+{
+  "label": "Experience edge {{edgeWebhookExecutionMode}} for environment {{environmentLabel}}",
+  "uri": "{{vercelWebhookUrl}}",
+  "method": "POST",
+  "executionMode": "{{edgeWebhookExecutionMode}}"
+}
+#### Experience Edge Settings
+GET https://edge.sitecorecloud.io/api/admin/v1/settings
+Authorization: Bearer {{edge_auth.response.body.$.access_token}}
+
+#### Experience Edge Delete all caches
+DELETE https://edge.sitecorecloud.io/api/admin/v1/cache/
+Authorization: Bearer {{edge_auth.response.body.$.access_token}}
+
+#### Experience Edge delete caches via identifier / content token
+DELETE https://edge.sitecorecloud.io/api/admin/v1/cache/3wMgrl12Actlsy6EKPFkvyx
+Authorization: Bearer {{edge_auth.response.body.$.access_token}}

@@ -1,0 +1,28 @@
+POST http://localhost:3000/api/revalidate?secret=123
+Content-Type: application/json
+
+{
+    "invocation_id": "2d1efd94-f652-496b-bd8c-c2fa7e6ec5f6",
+    "updates": [
+        {
+            "identifier": "revalidationsite/",
+            "entity_definition": "LayoutData",
+            "operation": "Update"
+        },
+        {
+            "identifier": "FCA978653BE04C7AA5520F85EB3D782D",
+            "entity_definition": "Item",
+            "operation": "Update"
+        },
+        {
+            "identifier": "F558BEC9C6024D7AB9A1D0411C946EA4",
+            "operation": "Delete"
+        },
+        {
+            "identifier": "2158396DF1C5495180C42DDCE23170CE",
+            "entity_definition": "Item",
+            "operation": "Update"
+        }
+    ],
+    "continues": false
+}
