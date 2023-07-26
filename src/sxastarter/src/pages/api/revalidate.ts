@@ -14,7 +14,7 @@ export default async function handler(req: any, res: any) {
 
       for await (const update of layoutUpdates) {
           let edgePpath = update.identifier;
-          let actualPath = "/" + edgePpath.substring(edgePpath.indexOf('/') + 1);
+          let actualPath = `/_site_${edgePpath.slice(0,-1)}`;//"/" + edgePpath.substring(edgePpath.indexOf('/') + 1);
 
           console.log(`[revalidate]: Revalidating edge path "${edgePpath}" as "${actualPath}"`);
          
