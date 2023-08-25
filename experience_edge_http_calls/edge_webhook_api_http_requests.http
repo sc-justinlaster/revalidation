@@ -10,8 +10,8 @@
 ### NOTE: The auth token must be associated with an environment, and cannot be an "organization" level token.
 ### WARNING: Because of the last "NOTE", these values will determine what ENVIRONMENT you're configuring. 
 
-@clientId=Ja6B4gokyBdccRp21w0vySSgSIJ1IspE
-@clientSecret=pqANlQ6_yOHinaoC0EXL5ozg7id6BQZrCkuIJtwL_vp0NOUh5ZDlrn1RMVRxH4EL
+@clientId=<>
+@clientSecret=<>
 
 ### Edge authentication request
 ###
