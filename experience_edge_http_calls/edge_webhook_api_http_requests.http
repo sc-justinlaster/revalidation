@@ -30,7 +30,7 @@ curl --request POST
 @environmentLabel=development
 @authToken=<>
 @contentToken=<>
-@vercelWebhookUrl=https://c284-23-121-91-115.ngrok-free.app/api/revalidate?secret=123
+@vercelWebhookUrl=<>
 @edgeWebhookExecutionMode=OnUpdate
 
 ####
