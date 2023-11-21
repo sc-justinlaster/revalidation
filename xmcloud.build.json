@@ -10,6 +10,12 @@
             "startCommand": "start:production"
         }
     },
+    "transforms": [
+      {
+        "xdtPath": "/xdts/web.config.xdt",
+        "targetPath": "/web.config"
+      }  
+    ],
     "postActions": {
         "actions":{
           "warmUpCm": {
