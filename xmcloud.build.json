@@ -12,8 +12,8 @@
     },
     "transforms": [
       {
-        "xdtPath": "/xdts/web.config.xdt",
-        "targetPath": "/web.config"
+        "xdtPath": "/xdts/Web.config.xdt",
+        "targetPath": "/Web.config"
       }  
     ],
     "postActions": {
