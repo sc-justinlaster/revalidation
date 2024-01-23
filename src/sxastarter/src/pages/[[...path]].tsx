@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useEffect } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import NotFound from 'src/NotFound';
@@ -8,7 +10,7 @@ import {
   ComponentPropsContext,
   handleEditorFastRefresh,
   EditingComponentPlaceholder,
-  StaticPath,
+  StaticPath
 } from '@sitecore-jss/sitecore-jss-nextjs';
 import { SitecorePageProps } from 'lib/page-props';
 import { sitecorePagePropsFactory } from 'lib/page-props-factory';
@@ -98,11 +100,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
     };
   }
 
+  let pageLevelRevalidation = props?.layoutData?.sitecore?.route?.fields?.revalidate_page_setting ? props.layoutData.sitecore.route.fields?.revalidate_page_setting : null;
+
+  let revalidationSetting = 5;
+  if (pageLevelRevalidation != null && (pageLevelRevalidation as any)?.value != null && (pageLevelRevalidation as any)?.value >= 0) {
+    let castedValue = (pageLevelRevalidation as any)?.value;
+    console.log("getStaticProps - Page level revalidation setting discovered: " + castedValue + " --- " + JSON.stringify(pageLevelRevalidation));
+    revalidationSetting = parseInt((pageLevelRevalidation as any)?.value ?? '0') ?? 0;
+  }
+
   return {
     props,
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 5 seconds
+    revalidate:  revalidationSetting,
     notFound: props.notFound, // Returns custom 404 page with a status code of 404 when true
   };
 };
